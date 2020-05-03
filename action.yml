@@ -9,8 +9,13 @@ inputs:
         description: 'Arguments to add to PHPStan CLI'
         required: false
         default: ''
+    bin:
+        description: 'Which PHPStAN binary to use.'
+        required: false
+        default: '/phpstan'
 runs:
     using: 'docker'
     image: 'Dockerfile'
     args:
+        - ${{ inputs.bin }}
         - ${{ inputs.arguments }}
