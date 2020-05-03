@@ -37,7 +37,7 @@ if [ -f phpstan.neon ]; then
   ARGUMENTS="${ARGUMENTS} -c phpstan.neon"
 fi
 
-php -d ${BIN} -V
+php ${BIN} -V
 echo "## Running PHPStan with arguments «${ARGUMENTS}»"
 echo "PHP Version : ${PHP_FULL_VERSION}"
 
