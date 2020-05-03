@@ -4,9 +4,15 @@ set -e
 PHP_FULL_VERSION=$(php -r 'echo phpversion();')
 
 if [ -z "$1" ]; then
+  BIN="/phpstan"
+else
+  BIN="$1"
+fi
+
+if [ -z "$2" ]; then
   ARGUMENTS="analyse ."
 else
-  ARGUMENTS="$1"
+  ARGUMENTS="$2"
 fi
 
 if [ -z "$(ls)" ]; then
@@ -28,11 +34,11 @@ fi
 
 if [ -f phpstan.neon ]; then
   echo "INFO: configuration file was found.  Using it"
-  ARGUMENTS="analyse -c phpstan.neon"
+  ARGUMENTS="${ARGUMENTS} -c phpstan.neon"
 fi
 
-/phpstan -V
+php -d ${BIN} -V
 echo "## Running PHPStan with arguments «${ARGUMENTS}»"
 echo "PHP Version : ${PHP_FULL_VERSION}"
 
-php -d memory_limit=-1 /phpstan ${ARGUMENTS}
+php -d memory_limit=-1 ${BIN} ${ARGUMENTS}
